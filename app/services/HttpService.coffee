@@ -1,8 +1,20 @@
+#Singleton class HttpService
 angular.module('goEcoApp')
-	.factory 'HttpService', ->
+	.factory 'HttpService', ['$http', ($http) ->
 		class HttpService
-			get: ->
-				alert 'asd' 
-				'get method'
+			instance = null
+			constructor: (@instanceId)->
+    			if instance
+      				return instance
+    			else
+      				instance = this
+      			console.log('HttpService instance ' + @instanceId)
+			get: (url) ->
+				$http.get(url).then (result) ->
+					console.log(result.data)
+					result.data
 			post: (params) ->
-				'post method'
+				['a','b','c']
+			getId: ->
+				@instanceId
+]
